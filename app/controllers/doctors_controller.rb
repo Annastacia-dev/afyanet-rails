@@ -1,7 +1,7 @@
 class DoctorsController < ApplicationController
   wrap_parameters format: []
   skip_before_action :patient_authorize
-  skip_before_action :doctor_authorize , only: [:create, :index]
+  skip_before_action :doctor_authorize , only: [:create, :index, :update]
   
   def index 
     @doctors = Doctor.all
@@ -22,6 +22,7 @@ class DoctorsController < ApplicationController
 
   # Update logged in/current doctor's attributes
   def update 
+    @doctor = Doctor.find(params[:id])
     @doctor.update!(doctor_params)
     render json: @doctor, status: :ok
   end
