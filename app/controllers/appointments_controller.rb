@@ -1,4 +1,9 @@
 class AppointmentsController < ApplicationController
+
+    skip_before_action :doctor_authorize
+    skip_before_action :patient_authorize
+
+
     def index
         @appointments = Appointment.all
         render json: @appointments, status: :ok
