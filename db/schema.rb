@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_13_052745) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_13_084414) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,7 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_13_052745) do
     t.string "location"
     t.integer "contract_length"
     t.string "days_available_weekly"
-    t.string "specific_days_times_available"
+    t.time "specific_days_times_available"
     t.boolean "engaged"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

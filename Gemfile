@@ -38,8 +38,5 @@ gem 'active_model_serializers'
 gem 'foreman'
 
 gem 'rack-cors'
-
-
-
-
+ 
 gem "jwt", "~> 2.6"
