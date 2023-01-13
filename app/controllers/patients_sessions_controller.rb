@@ -11,7 +11,7 @@ class PatientsSessionsController < ApplicationController
       token = encode_token(patient_id: @patient.id)
       render json: PatientSerializer.new(@patient).as_json.merge(jwt: token), status: :accepted
     else
-      render json: { error: 'Invalid email or password!' }, status: :unauthorized
+      render json: { errors: ['Invalid email or password!'] }, status: :unauthorized
     end
   end
 

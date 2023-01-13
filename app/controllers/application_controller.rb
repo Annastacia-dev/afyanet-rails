@@ -48,7 +48,7 @@ class ApplicationController < ActionController::API
       if doctor_logged_in?
           true
       else
-          render json: { message: 'Please log in' }, status: :unauthorized
+          render json: { errors: ['Please log in'] }, status: :unauthorized
       end
     end
   
@@ -67,7 +67,7 @@ class ApplicationController < ActionController::API
       if patient_logged_in?
           true
       else
-          render json: { message: 'Please log in' }, status: :unauthorized
+          render json: { error: ['Please log in'] }, status: :unauthorized
       end
     end
     
