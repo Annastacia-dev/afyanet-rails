@@ -13,7 +13,7 @@ class SpecialtiesController < ApplicationController
         render json: @specialty, status: :ok
     end
 
-    def new
+    def create
         @specialty = Specialty.create!(specialty_params)
         render json: @specialty, status: :created
     end

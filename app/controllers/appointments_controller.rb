@@ -9,7 +9,7 @@ class AppointmentsController < ApplicationController
         render json: @appointment, status: :ok
     end
 
-    def new
+    def create
         @appointment = Appointment.create!(appointment_params)
         render json: @appointment, status: :created
     end

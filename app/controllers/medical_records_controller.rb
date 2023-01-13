@@ -10,7 +10,7 @@ class MedicalRecordsController < ApplicationController
         render json: @medical_record, status: :ok
     end
 
-    def new
+    def create
         @patient = Patient.find(params[:patient_id])
         @medical_record = @patient.medical_records.create!(medical_record_params)
         render json: @medical_record, status: :created
