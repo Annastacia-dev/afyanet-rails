@@ -56,7 +56,7 @@ Doctor.create!([{
     "location":"Karen",
     "days_available_weekly":"monday,tuesday,wednesday,thursday",
     "contract_length":6,
-    "specific_days_times_available":"10am - 16:45pm"
+    "specific_days_times_available":"09:00:00"
 }])
 
 puts 'Doctor created!'
