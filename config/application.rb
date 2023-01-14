@@ -29,6 +29,10 @@ module AfyanetRails
     config.middleware.use ActionDispatch::Session::CookieStore
 
     # This middleware provides application security, accepting cookies/requests that only come from our domain
-    config.action_dispatch.cookies_same_site_protection = :strict
+    config.action_dispatch.cookies_same_site_protection = :none
+
+    # Allow all hosts
+    config.hosts.clear
+
   end
 end
