@@ -4,6 +4,9 @@ Rails.application.configure do
   config.hosts << "afyanet-api-production.up.railway.app"
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # allow all hosts
+  config.hosts.clear
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 

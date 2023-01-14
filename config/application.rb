@@ -32,7 +32,7 @@ module AfyanetRails
     config.action_dispatch.cookies_same_site_protection = :none
 
     # Allow all hosts
-    config.hosts = :any
+    config.hosts.clear
 
   end
 end
