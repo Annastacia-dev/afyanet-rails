@@ -1,6 +1,6 @@
 class PatientsController < ApplicationController
   wrap_parameters format: []
-  skip_before_action :patient_authorize, only: [:create, :index, :show, :update]
+  skip_before_action :patient_authorize, only: [:create, :index, :update]
   skip_before_action :doctor_authorize
 
   def index
@@ -16,7 +16,6 @@ class PatientsController < ApplicationController
 
   # Show an appropriate profile of a currently logged in patient
   def show 
-    @patient = Patient.find(params[:id])
     render json: @patient, status: :ok
   end
 
