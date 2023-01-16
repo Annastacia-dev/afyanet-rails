@@ -1,5 +1,8 @@
 class MedicalRecordsController < ApplicationController
 
+    skip_before_action :patient_authorize
+    skip_before_action :doctor_authorize
+
     def index 
         @medical_records = MedicalRecord.all
         render json: @medical_records, status: :ok
