@@ -3,7 +3,7 @@ class PatientSerializer < ActiveModel::Serializer
 
     has_many :messages
     has_many :appointments
-    has_many :medical_records
+    has_one :medical_record
 
     # calculate the age of the patient
     def age
