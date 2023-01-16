@@ -2,7 +2,7 @@ class Patient < ApplicationRecord
     has_secure_password
     has_many :messages
     has_many :appointments
-    has_many :medical_records
+    has_one :medical_record
 
 
     validates :first_name, presence: true, length: { in: 2..20 }, format: { with: /\A[a-zA-Z]+\z/, message: "First name must contain only letters" }
