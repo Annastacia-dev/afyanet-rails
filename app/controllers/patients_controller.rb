@@ -1,6 +1,6 @@
 class PatientsController < ApplicationController
   wrap_parameters format: []
-  skip_before_action :patient_authorize, only: [:create, :show, :update]
+  skip_before_action :patient_authorize, only: [:create,:index, :show, :update]
   skip_before_action :doctor_authorize
 
   def index
