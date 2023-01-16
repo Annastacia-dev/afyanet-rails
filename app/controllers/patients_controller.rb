@@ -1,7 +1,12 @@
 class PatientsController < ApplicationController
   wrap_parameters format: []
-  skip_before_action :patient_authorize, only: :create
+  skip_before_action :patient_authorize, only: [:create, :show, :update]
   skip_before_action :doctor_authorize
+
+  def index
+    @patients = Patient.all
+    render json: @patients, status: :ok
+  end
 
   # Create a patient on signup 
   def create 
