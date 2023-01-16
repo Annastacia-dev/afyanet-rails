@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :messages
   resources :appointments
   resources :specialties
-  # resources :patients
+  resources :patients
   
   root "application#index"
 
