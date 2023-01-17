@@ -1,7 +1,7 @@
 class MedicalRecordsController < ApplicationController
 
-    skip_before_action :patient_authorize
-    skip_before_action :doctor_authorize
+    skip_before_action :authenticate_patient
+    skip_before_action :authenticate_doctor
 
     def index 
         @medical_records = MedicalRecord.all

@@ -1,7 +1,7 @@
 class AppointmentsController < ApplicationController
 
-    skip_before_action :doctor_authorize
-    skip_before_action :patient_authorize
+    skip_before_action :authenticate_doctor
+    skip_before_action :authenticate_patient
 
 
     def index
