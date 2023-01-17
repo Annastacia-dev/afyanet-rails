@@ -1,76 +1,48 @@
 class ApplicationController < ActionController::API
     include ActionController::Cookies
+
+    # include JwtToken
   
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
   
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
   
-    before_action :patient_authorize
-    before_action :doctor_authorize
-  
+    before_action :authenticate_patient
+    before_action :authenticate_doctor
+
     def index 
         render json: {message: "AfyaNet API"}
     end
-  
+
     def encode_token(payload)
-      JWT.encode(payload, 'my_s3cr3t')
-    end
+        JWT.encode(payload, 'my_s3cr3t', 'HS256')
+      end
   
-    def auth_header
-      # { Authorization: 'Bearer <token' }
-      request.headers['Authorization']
-    end
-  
-    def decoded_token
-        if auth_header
-            token = auth_header.split(' ')[1]
-            begin
-                JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')
-            rescue
-                nil
-            end
-        end
-  
-    end
-  
-    def current_doctor
-        if decoded_token
-            doctor_id = decoded_token[0]['doctor_id']
-            @doctor = Doctor.find_by(id: doctor_id)
+    def authenticate_patient
+        header = request.headers["Authorization"]
+        token = header.split(' ').last if header
+        begin
+            @decoded = JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')[0]
+            @patient = Patient.find_by(id: @decoded['patient_id'])
+        rescue 
+            render json: { errors: 'Invalid or absent token'  }, status: :unauthorized
         end
     end
-  
-    def doctor_logged_in?
-      !!current_doctor
+
+    def authenticate_doctor 
+        header = request.headers["Authorization"]
+        binding.pry
+        token = header.split(' ').last if header
+        binding.pry
+        begin
+            @decoded = JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')[0]
+            binding.pry
+            @patient = Doctor.find_by(id: @decoded['doctor_id'])
+            binding.pry
+        rescue 
+            render json: { errors: 'Invalid or absent token!'  }, status: :unauthorized
+        end
     end
-  
-    def doctor_authorize
-      if doctor_logged_in?
-          true
-      else
-          render json: { errors: ['Please log in'] }, status: :unauthorized
-      end
-    end
-  
-    def current_patient
-      if decoded_token
-          patient_id = decoded_token[0]['patient_id']
-          @patient = Patient.find_by(id: patient_id)
-      end
-    end
-  
-    def patient_logged_in?
-      !!current_patient
-    end
-  
-    def patient_authorize
-      if patient_logged_in?
-          true
-      else
-          render json: { error: ['Please log in'] }, status: :unauthorized
-      end
-    end
-    
   
     private
   
@@ -83,4 +55,3 @@ class ApplicationController < ActionController::API
     end
   
   end
-  

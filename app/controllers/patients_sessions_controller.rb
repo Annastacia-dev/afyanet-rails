@@ -1,9 +1,11 @@
 class PatientsSessionsController < ApplicationController
 
   wrap_parameters format: []
-  skip_before_action :patient_authorize, only: :create
-  skip_before_action :doctor_authorize
+  skip_before_action :authenticate_patient, only: :create
+  skip_before_action :authenticate_doctor
 
+
+  # Login patient
   def create
     @patient = Patient.find_by(email: params[:email])
 
