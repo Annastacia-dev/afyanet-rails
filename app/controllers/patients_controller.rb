@@ -22,7 +22,7 @@ class PatientsController < ApplicationController
   # Update currently logged patient's attributes
   def update 
     @patient = Patient.find(params[:id])
-    @patient.update!(patient_params.except(:password, :password_confirmation))
+    @patient.update!(patient_params)
     render json: @patient, status: :ok
   end
 
