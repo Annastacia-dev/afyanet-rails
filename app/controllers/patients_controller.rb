@@ -4,8 +4,6 @@ class PatientsController < ApplicationController
   skip_before_action :authenticate_patient, only: :create
   skip_before_action :authenticate_doctor
 
-  # include Devise::Controllers::Helpers
-  require 'pry'
   def index
     @patients = Patient.all
     render json: @patients, status: :ok
@@ -19,7 +17,11 @@ class PatientsController < ApplicationController
   # Create a patient on signup 
   def create 
     @patient = Patient.create!(patient_params)
-    render json: @patient, status: :created
+
+    @patient && @patient.authenticate(params[:password])
+    token = encode_token(patient_id: @patient.id)
+    render json: PatientSerializer.new(@patient).as_json.merge(jwt: token), status: :created
+    
   end
 
   # Update currently logged patient's attributes

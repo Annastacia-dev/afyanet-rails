@@ -13,7 +13,10 @@ class DoctorsController < ApplicationController
   # Create a doctor on signup
   def create
     @doctor = Doctor.create!(doctor_params)
-    render json: @doctor, status: :created
+    
+    @doctor && @doctor.authenticate(params[:password])
+    token = encode_token(doctor_id: @doctor.id)
+    render json: DoctorSerializer.new(@doctor).as_json.merge(jwt: token), status: :created
   end
 
   # Show profile of currently logged in doctor
