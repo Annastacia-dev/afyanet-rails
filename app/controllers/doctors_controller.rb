@@ -9,7 +9,6 @@ class DoctorsController < ApplicationController
     render json: @doctors, status: :ok
   end
   
-
   # Create a doctor on signup
   def create
     @doctor = Doctor.create!(doctor_params)
@@ -26,7 +25,6 @@ class DoctorsController < ApplicationController
 
   # Update logged in/current doctor's attributes
   def update 
-    @doctor = Doctor.find(params[:id])
     @doctor.update!(doctor_params)
     render json: @doctor, status: :ok
   end
@@ -41,10 +39,6 @@ class DoctorsController < ApplicationController
   
   def doctor_params 
     params.permit(:first_name, :last_name, :email, :password, :password_confirmation, :phone_number, :licence_no, :location, :specialty, :contract_length, :days_available_weekly, :specific_days_times_available, :engaged, :remember_me, :profile_picture, :specialty_id)
-  end
-
-  def find_doctor
-    @doctor = Doctor.find(params[:id])
   end
 
 end
