@@ -34,7 +34,7 @@ class ApplicationController < ActionController::API
         token = header.split(' ').last if header
         begin
             @decoded = JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')[0]
-            @patient = Doctor.find_by(id: @decoded['doctor_id'])
+            @doctor = Doctor.find_by(id: @decoded['doctor_id'])
         rescue 
             render json: { errors: 'Invalid or absent token!'  }, status: :unauthorized
         end

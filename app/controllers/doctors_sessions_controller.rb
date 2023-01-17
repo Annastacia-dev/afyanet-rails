@@ -15,10 +15,4 @@ class DoctorsSessionsController < ApplicationController
     end
   end 
 
-  private 
-    
-  def doctor_params
-    params.permit(:email, :password)
-  end
-
 end
