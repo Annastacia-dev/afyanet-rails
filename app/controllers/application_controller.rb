@@ -31,14 +31,10 @@ class ApplicationController < ActionController::API
 
     def authenticate_doctor 
         header = request.headers["Authorization"]
-        binding.pry
         token = header.split(' ').last if header
-        binding.pry
         begin
             @decoded = JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')[0]
-            binding.pry
             @patient = Doctor.find_by(id: @decoded['doctor_id'])
-            binding.pry
         rescue 
             render json: { errors: 'Invalid or absent token!'  }, status: :unauthorized
         end
