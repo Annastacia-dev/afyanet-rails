@@ -34,5 +34,8 @@ module AfyanetRails
     # Allow all hosts
     config.hosts.clear
 
+    config.time_zone = "Africa/Nairobi"
+    config.active_record.default_timezone = :local
+
   end
 end
