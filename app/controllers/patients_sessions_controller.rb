@@ -8,7 +8,6 @@ class PatientsSessionsController < ApplicationController
   # Login patient
   def create
     @patient = Patient.find_by(email: params[:email])
-
     if @patient && @patient.authenticate(params[:password])
       token = encode_token(patient_id: @patient.id)
       render json: PatientSerializer.new(@patient).as_json.merge(jwt: token), status: :accepted
